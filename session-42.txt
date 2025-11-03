@@ -1,0 +1,25 @@
+Catalogue
+==========
+1. get the IP address dynamically using dynamic inventory, connect to them and update our application/configuration
+
+create instance
+configure it using ansible
+stop the instance
+take AMI -> devops-practice is the base AMI
+launch template
+	instance type
+	subnet
+	sg
+	AMI
+	storage
+target group
+ASG
+ASG will launch instances in TG
+ASG Policy
+Listener Rule
+
+sudo lsblk -> check partitions
+sudo growpart /dev/nvme0n1 4 -> increase the partition
+sudo lsblk -> check once again
+sudo lvextend -L +30G /dev/mapper/RootVG-homeVol
+sudo xfs_growfs /home

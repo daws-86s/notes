@@ -1,0 +1,45 @@
+remote provisioner
+copy simple script
+	clone the ansible roles
+	send the args through cmd
+	
+create the instance
+configure it
+stop it
+take AMI
+create TG
+create Launch template
+create ASG
+create ASG policy
+create LB rule
+
+ARN -> amazon resource name
+
+type of the resource, name/id of the resource, region, account number
+arn:aws:ec2:us-east-1:160885265516:instance/i-0a6e339f43ee8b372
+
+*.backend-alb-dev.daws86s.fun
+
+/api/catalouge -> catalogue.backend-alb-dev.daws86s.fun
+
+host path
+context path
+
+icicibank.com -> netbanking
+
+netbanking.icicibank.com -> hostpath
+
+icicibank.com/netbanking -> contextPath
+
+netbanking.icicibank.com/user/239733457/dashboard
+
+icicibank.com/netbanking/user/239733457/dashboard
+
+curl http://catalogue.backend-alb-dev.daws86s.fun/health
+
+LB
+Listener 80
+Rule
+Target group
+
+aws ec2 terminate-instances --instance-ids i-xxxxxxxxxxxxxxxxx
