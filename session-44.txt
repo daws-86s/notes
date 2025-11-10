@@ -1,0 +1,98 @@
+http://catalogue.backend-alb-dev.daws86s.fun
+user.backend-alb-dev.daws86s.fun
+cart.backend-alb-dev.daws86s.fun
+
+netbanking.icici.com -> host path
+icici.com/netbanking -> context path
+
+create instance
+configure instance
+stop instance
+take AMI
+create target group
+create launch template
+create autoscaling group
+autoscaling group policy
+listener rule
+delete instance
+
+update the application
+======================
+terraform apply -auto-approve
+
+create new instance
+configure instance -> it will pull latest updated code
+stop instance
+take AMI -> new AMI ID will be created
+launch template -> create new version with new AMI ID
+ASG -> Rolling update
+
+recruit one person -> give KT to him
+then release one old member
+recruit another person -> give KT to him
+then release one old member
+
+catalogue -> is running on old AMI, we got new AMI
+Rolling update
+==============
+ASG refresh
+
+first it will create one new instance with new launch version
+once the instance is up, it will delete old instance
+it will create another instance with new launch version
+once the instance is uo, it will delete 2nd old instance
+
+old instances and new instances
+no down time
+at a time 2 versions of applications are running old and new
+
+announce downtime
+=================
+12:00AM-06:00AM
+
+terraform apply -auto-approve
+
+https -> how https works
+
+SSL -> secure socket layer
+
+public key and private key
+===========================
+public key kept in server
+private key will be with us
+
+someone encrypts a message with our public key can only be decrypted with private key
+
+we must have one domain for https to work
+
+we will generate public and private keys for our domain
+
+popular vendors are there to validate the domains...
+
+we will send our public key to that vendor...they will sign that public key
+
+client -> daws86s.fun(this server will have our public key attested by vendor)
+
+certificate will be downloaded to the client(browser)
+
+client a simple random text message will be encrypted with this public key and sent to server
+
+server decrypts that message and sent to client..if that message is same then it confirms client is speaking same server
+
+every communication will be encrypted with that random message key
+
+1. domain is mandatory
+2. our public key should be signed by popular vendor
+3. private key will be with us
+4. SSL termination will be at the frontend load balancer.
+
+roboshop-dev.daws86s.fun -> in DEV environment
+daws86s.fun -> PROD
+
+daws86s.fun
+
+https://daws86s.fun:443
+
+https://daws86s.fun:445
+
+terraform-aws-roboshop
