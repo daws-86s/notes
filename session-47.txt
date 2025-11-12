@@ -1,0 +1,22 @@
+https://roboshop-dev.daws86s.fun -> R53, we configured FALB
+FALB -> https Listener on 443
+Rules -> roboshop-dev.daws86s.fun -> Frontend TG
+Health check
+Frontend 
+
+https://roboshop-dev.daws86s.fun/api/catalogue/categories
+
+nginx.conf -> hitting backend ALB catalogue.backend-alb-dev.daws86s.fun
+
+R53 -> *.backend-alb-dev.daws86s.fun -> backend ALB
+
+Listener -> http -> 80
+catalogue.* -> catalogue rule evaluation -> catalogue TG
+health check
+then we get response from catalogue -> mongoDB
+
+
+https://roboshop-dev.daws86s.fun/api/cart/add/siva/HPTD/1
+
+* SG Rules
+* .service files dependency, check host URL and port number
