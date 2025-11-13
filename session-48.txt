@@ -1,0 +1,28 @@
+1. while upgrading application in one VM it is successfully upgraded by terraform and ansible
+2. but later few days, we are not able to SSH into that, but application is running
+
+something would have disturbed SSH in the VM, but not application, it keeps on running
+
+while installing python3-devel in VM it is dependent on openssl-libs package.
+openssl openssl-server openssl-libs(upgraded to new version while installing python3-devel)
+
+version mismatch between openssl-libs and openssl-server already present in VM, SSH depends on this openssl
+when this mismatch occured SSH broken and stopped
+
+1. fix devops-practice AMI to have latest openssl
+2. while installing python3-devel make sure openssl other packages also upgraded
+
+DEV or NON-PROD -> we can use VPN to login to servers directly
+PROD -> you should use VPN, connect to bastion and then to SSH servers
+
+openvpnas
+
+22 -> SSH
+443, 943, 1194(internal)
+
+
+Admin  UI: https://44.203.237.102:943/admin
+Client UI: https://44.203.237.102:943/
+To login please use the "openvpn" account
+
+ for i in 90-components/ 40-databases/; do cd $i; terraform destroy -auto-approve; cd .. ;done
