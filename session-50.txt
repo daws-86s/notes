@@ -1,0 +1,76 @@
+if we have 2 AWS accounts, how can we create resources using terraform
+
+PROD=160885265516
+DEV=752692907119
+
+VPC Peering
+DEV VPC
+PROD VPC
+VPC Peering
+	Requestor
+	Acceptor
+
+Provider -> one AWS account will get one provider
+
+VPC Peering
+==========
+same region, different accounts
+DEV = Requestor
+PROD = Acceptor
+
+Peer owner is always the acceptor
+
+Terraform import
+=================
+Terraform code -> Resources -> Statefile
+Resources -> Terraform code
+
+VPC -> vpc_id
+SG -> sg_id and name
+EC2 -> instance_id
+
+1. Create one skelton resource block, no need to give any params
+2. Then run terraform import using unique id
+3. Terraform will fetch all the information and keep it in state file
+4. Now complete the resource block by getting the values from state file
+
+R53 -> old infra point
+daws86s.test -> new infra -> FALB -> BALB -> Components -> DB
+
+R53 -> new ALB
+
+Terraform lifecycle
+====================
+SG is attached to EC2
+EC2 is depending on SG
+
+Destroy the resource first
+Create new resource
+
+need to create another resource first
+change the EC2 reference to new SG
+delete old SG
+
+ASG
+====
+min=1
+desired=1
+max=10
+
+5 instances are running
+
+lifecycle {
+    ignore_changes = [
+      min_size,
+      max_size,
+      desired_capacity,
+    ]
+  }
+  
+terraform target
+===============
+10 resources, I want to create only 1 resource
+
+terraform target 
+
+
