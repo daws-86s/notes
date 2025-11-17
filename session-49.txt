@@ -1,0 +1,70 @@
+https://roboshop-dev.daws86s.fun -> R53 -> FALB
+Listener -> https 443
+Rules
+- roboshop-dev.daws86s.fun -> frontend TG (health check is performed)
+- default -> fixed response
+
+https://roboshop-dev.daws86s.fun/api/catalogue/categories -> nginx.conf
+
+/api/catalogue -> http://catalogue.backend-alb-dev.daws86s.fun:80
+
+frontend -> catalogue.backend-alb-dev.daws86s.fun
+
+BALB
+
+Listener -> HTTP 80
+Rules
+- catalogue. -> catalogue TG with health check
+
+CDN -> Cloudfront
+====================
+caching service
+
+Netflix has servers in US.
+
+edge cache network
+
+application -> cache -> database
+
+establish a connection with database
+run query
+fetch results
+parse the results
+then close the connection
+
+edge location should have origin
+what to cache and what not to cache
+
+CDN -> http://dev.daws86s.fun -> https://dev.daws86s.fun
+
+GET PUT POST DELETE
+
+GET -> cached
+
+* -> FALB -> roboshop-dev.daws86s.fun
+
+icici.com/netbanking
+icici.com/corporatebanking
+
+/roboshop -> FALB -> roboshop-dev.daws86s.fun
+/corporatebanking -> corporatebanking.daws86s.fun
+
+https://roboshop-dev.daws86s.fun/media/graph.png
+https://roboshop-dev.daws86s.fun/media/instana_icon_square.png
+https://roboshop-dev.daws86s.fun/media/stan.png
+
+name, domain, certificate
+
+origin
+behaviour -> which content to cache, which content not to cache
+invalidations -> at the time new application releses you can invalidate the cache, it will freshly download from origin
+
+ELBSecurityPolicy-TLS13-1-2-Res-2021-06
+
+terraform import -> how to import existing manually created services into terraform
+how to use multi cloud accounts
+
+S3
+======
+securing the state
+
