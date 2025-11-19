@@ -1,0 +1,149 @@
+Containerisation
+
+5 couples -> 10 members
+12 members
+20-25 members joint family
+individual house
+
+4members -> small family
+mother and father -> 2 kids
+a flat in apartment is enough
+
+individuals -> metros
+PG or a single room
+
+Individual vs Flat vs PG room
+==============================
+advantages
+==========
+completely ours, space is not shared
+privacy
+own design
+
+disadvantages
+============
+maintaince on us
+	electric
+	plumbing
+	security agency
+costly
+time taking
+
+Flat
+====
+advantages
+===
+Less maintaince
+	Electric
+	Plumbing
+	Security
+Less cost
+Time is also less
+
+disadvantages
+======
+less privacy
+shared space
+not your design
+rules
+
+Individual PG
+========
+advantages
+====
+less cost
+no maintaince
+less time
+
+disadvantages
+=====
+no privacy
+everything is shared
+
+HTML CSS JavaScript -> Frontend
+Java or .NET -> Backend
+
+J2EE -> Java Enterprise Edition
+Servlets and JSP(Java Server pages) for viewing -> spring also depends on this
+a single file -> frontend+backend
+roboshop.war + dependencies(libraries) jar files
+roboshop.ear (enterprise archeive)
+150-200MB
+
+A simple change in anything should again follow the release process
+
+Client side BA -> Our BA
+BA, Delivery Manager, Architects, Leads -> meeting
+1 month
+DEV SIT UAT PROD
+
+9PM -> 6AM
+Bridge -> L1 support, L2 support, L3 support(Developers) monitoring, service desk, client, managers
+
+Seam framework(Jboss)
+Struts
+Spring (Evolution and Revolution)
+
+Weblogic, Webspher, Jboss, Wildfly
+
+Monolithic
+=============
+Frontend -> Backend(Entire app should be in single programming language)
+API
+.war
+Apache tomcat, JBoss Web Server
+
+Microservices
+=============
+Catalogue, Cart, Shipping
+API
+every component in diff programming language
+MBs
+Containers
+
+Booting time
+
+Virtulisation			Containerisation
+Costly					Cheaper
+More boot time			less boot time
+more size				less size
+resource utilisation	resource utilisation is more
+is less
+More privacy			Less privacy
+Less portable			More portable
+
+sudo dnf -y install dnf-plugins-core
+sudo dnf config-manager --add-repo https://download.docker.com/linux/rhel/docker-ce.repo
+
+sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+
+a docker group is created
+only root user and users inside docker group will have acess to docker cli
+
+sudo usermod -aG docker ec2-user
+
+exit and login again
+
+docker ps -> all running containers
+
+images
+
+AMI = OS + System Packages + App run time + App code + App libraries -> Amazon machine image
+
+Docker image = Bare minimum OS(10Mb) + System Packages + App run time + App code + App libraries -> Amazon machine image
+500Mb
+
+Image is static, Server is running version of OS
+
+if you run image you get container(running instance of image)
+
+docker ps -> running containers
+docker pull nginx -> pulling the nginx image
+docker images -> images in the local docker repo
+
+docker pull + docker create ImageID + docker start ContainerID
+
+docker run = docker pull + create + start
+
+
+
