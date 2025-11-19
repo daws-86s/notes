@@ -1,0 +1,105 @@
+image and container
+image = bare min OS + System pacakges + Application Runtime + App code + dependencies
+if You run image we get container, container is the running instance is image
+
+docker ps -> all running docker containers
+docker ps -a -> all containers
+docker images -> images available in the server
+docker pull <image-name>:<tag> -> pulls the image from docker hub
+docker create imageID -> creates container from image
+docker start containerID -> starts the container
+
+docker run = pull + create + start
+docker run -d 
+
+growpart /dev/nvme0n1 4
+lvextend -L +30G /dev/mapper/RootVG-varVol
+xfs_growfs /var
+/var/lib/docker -> docker home repo
+
+sudo dnf -y install dnf-plugins-core
+sudo dnf config-manager --add-repo https://download.docker.com/linux/rhel/docker-ce.repo
+sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+sudo systemctl start docker
+sudo systemctl enable docker
+sudo usermod -aG docker ec2-user
+
+docker run -d -p <host-port>:<container-port> nginx
+
+docker run -d -p 80:80 nginx
+
+http://98.92.17.244
+
+docker exec -it container-id bash
+docker inspect image/containerID
+
+Dockerfile -> Instructions to build custom images
+
+Dockerfile
+
+FROM
+=====
+refers to base OS of the image. your Dockerfile first instruction should be FROM
+
+docker build -t <image-name>:<version> . -> . refers to current directory, it means Dockerfile is in current directory
+
+docker push <URL>/<Username>/<image-name>:<version>
+
+
+from 
+
+docker.io/joindevops/from:version
+ramesh/from
+
+docker login
+
+docker tag image-name:version username/image-name:version
+docker push username/image-name:version
+
+if you are pulling the image, first it checks whether it is available in local or not. if not available it pulls from central repo
+
+docker rm -f `docker ps -a -q`
+
+RUN
+===
+RUN instruction is used to configure the image. like installing packages, configurations, creating user, etc.
+
+docker build --no-cache --progress=plain -t run:v1 .
+
+CMD
+====
+referring the base image
+configuring using RUN instruction
+
+CMD ["nginx", "-g", "daemon off;"]
+
+systemctl start nginx
+
+CMD ["systemctl", "start", "nginx"] -> this will not work inside container, because does not have capabilities to contact kernal
+
+instruction inside CMD should run the container for infinite time. command we are giving inside CMD should run in foreground, then we should take it into background
+
+FROM almalinux:9
+
+building the image
+running the image
+
+CMD -> instruction used to start the container
+
+RUN -> executes at the time of image building
+CMD -> executes at the time of container starting
+
+image can have multiple run instructions
+CMD should be only one, if we give multiple CMD last one is considered
+
+LABEL
+====
+adds the metadata to the image, used for filtering
+
+EXPOSE
+======
+it will not any functionality to the image/container, it adds the information about ports used by container
+
+EXPOSE <port-number> -> it will not open the port, just for information
+
+docker.joindevops.com/joindevops/from
