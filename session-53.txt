@@ -1,0 +1,51 @@
+Notes
+#!/bin/bash
+growpart /dev/nvme0n1 4
+lvextend -L +30G /dev/mapper/RootVG-varVol
+xfs_growfs /var
+dnf -y install dnf-plugins-core
+dnf config-manager --add-repo https://download.docker.com/linux/rhel/docker-ce.repo
+dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+systemctl start docker
+systemctl enable docker
+usermod -aG docker ec2-user
+
+docker exec -it containerid bash
+
+FROM -> refer the base OS/image
+RUN -> configure the image, like installing packages, users, etc.
+CMD -> command to start the container
+LABEL -> add the tags, key value pairs. basically metadata
+EXPOSE -> ports information
+COPY -> copy files from workspace to image
+
+docker build -t URL/username/image-name:version .
+docker build -t joindevops/from:v1 .
+
+docker tag image-name:version username/image-name:version
+docker push
+
+ENV KEY=VALUE
+
+ADD
+===
+ADD is also like COPY to copy the content inside the image. But ADD has 2 extra capabilities
+
+1. It can directly fetch the content from internet
+2. It can directly untar the file inside container/image
+
+CMD ENTRYPOINT
+==========
+1. CMD instruction can be overriden.
+2. ENTRYPOINT can't be overriden, if we try it will go and append that leads to failure
+3. CMD can be used to supply the default args to ENTRYPOINT. You can always override the default args at run time
+
+ARG
+===
+ARG can be the first instruction in an exceptional case i.e to supply the version to the base image.. after FROM instruction we can't access ARG variable
+
+ARG vs ENV
+==========
+1. ENV is used to supply the key value pairs for the container/runtime
+2. ARG is used to supply the values to variables at build time.
+3. ARG can't be accessible inside container.
