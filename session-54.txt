@@ -1,0 +1,24 @@
+FROM -> refer base OS
+RUN -> configure the image, install, create user, folder, etc.
+CMD -> command to start the container
+ENTRYPOINT -> command to start the container, but can't be overriden. used with CMD, CMD can supply default args. Users always can override default args
+LABEL -> adds metadata to the image. used to filter
+EXPOSE -> info about ports opened by container
+ENV -> environment variables, containers can use
+ARG -> build time variables. can be before FROM instruction to supply version to base OS. build variables can't be accessed inside container
+COPY/ADD -> copies the files from local to image. ADD can download file from internet. ADD can directly untar the file into the image
+USER -> default user to run the container
+WORKDIR -> working directory for the container/image
+ONBUILD -> force the users to follow ONBUILD instructions while using some image
+
+1. host -> you no need docker interface, directly connect to host
+2. bridge -> docker creates another virtual network interface inside server and allocates the IP address to containers
+
+-p 80:80
+
+docker default bridge network can't communicate between containers
+
+1. use bridge network
+2. create your own network interface
+
+docker run -d --name rabbitmq --network roboshop -e RABBITMQ_DEFAULT_USER=roboshop -e RABBITMQ_DEFAULT_PASS=roboshop123 rabbitmq:3
