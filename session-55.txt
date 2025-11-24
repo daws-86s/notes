@@ -1,0 +1,38 @@
+1. Build the image
+2. How to run the image
+
+for i in mongodb mysql catalogue user cart shipping payment frontend ; do cd $i; docker build -t $i:v1 . ; cd ..; done
+
+docker compose
+===============
+it is simple yaml used to up or down the services at a time, define dependencies, networks, volumes, etc.
+services are dependent on each other. 
+
+docker create network roboshop
+docker run -d -p 80:80 --name frontend --network roboshop frontend:v1
+
+by default containers are ephermeral, if you remove container data also will be deleted. to persist the data we need to use volumes
+1. un named volumes. if you create directories/volumes manually we need to manage them
+2. named volumes. docker can create volumes and manage using docker commands
+
+stateful and stateless
+mongodb redis mysql rabbitmq -> data
+stateless -> not data, just code.. we are already storing code in git
+
+package.json
+server.js
+node_modules -> dependencies
+
+Multi stage builds
+=================
+Having multiple dockerfiles, one dockerfile can be used as builder, we copy the content required from that to the final image. in this process we can remove un-necessary installtions, build cache, etc. we can reduce image size using multi stage builds
+
+1. Use official small images like alpine
+2. use mutli stage builds
+3. use volumes and custom networks
+4. use labels and expose
+5. Optimise layers
+6. don't hardcode secrets, we will handle this in kubernetes level
+7. use dockerignore to ignore un-necessary files related to docker
+8. use entrypoint and cmd
+9. dont use root user, use normal user
