@@ -1,0 +1,20 @@
+1. Build the image
+	* Optimise the image
+2. Run the image
+	* How are you providing configuration
+	
+1. Official small images
+2. Multi stage builds
+3. Non root containers
+4. Labels and Expose
+5. Use custom networks and volumes
+6. Use dockerignore
+7. Limit the resources and perform health checks
+8. Optimise layering
+	* Reduce number of layers, frequently changing instruction should be at last
+	* Combine multiple instructions into single instruction, that speeds up the build prcess
+9. use entrypoint and cmd
+
+JDK and JRE
+JDK -> Java development kit = JRE + DEV tools
+JRE -> Java runtime environment
