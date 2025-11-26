@@ -1,0 +1,24 @@
+Docker client/docker command, Docker Host, Docker local registry, Docker central registry or Hub, Docker objects storage, network are part of Docker architecture
+
+when you run docker command, it checks whether image is locally available or not, if not available it will pull from hub, create container out of it and send the response to client
+
+Disadvantages in Docker
+=======================
+1. no autoscaling
+2. no load balancing
+3. if docker host crashes. we can't rely on docker host
+4. if multiple docker hosts, who manage them
+5. what about secrets? network management
+
+We need orchestrator to manage the containers in multiple hosts..
+
+Docker swarm -> native docker orchestrator
+
+No autoscaling in Docker swarm, Load balancing is not in our control, networking is poor, no cloud integration
+
+Workstation
+============
+1. Install Docker
+2. Install eksctl
+3. Install kubectl
+4. AWS configure
