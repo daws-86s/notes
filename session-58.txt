@@ -1,0 +1,64 @@
+#!/bin/bash
+growpart /dev/nvme0n1 4
+lvextend -L +30G /dev/mapper/RootVG-varVol
+xfs_growfs /var
+dnf -y install dnf-plugins-core
+dnf config-manager --add-repo https://download.docker.com/linux/rhel/docker-ce.repo
+dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+systemctl start docker
+systemctl enable docker
+usermod -aG docker ec2-user
+
+curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.34.2/2025-11-13/bin/linux/amd64/kubectl
+chmod +x ./kubectl
+mkdir -p $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$HOME/bin:$PATH
+
+ARCH=amd64
+PLATFORM=$(uname -s)_$ARCH
+curl -sLO "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_$PLATFORM.tar.gz"
+tar -xzf eksctl_$PLATFORM.tar.gz -C /tmp && rm eksctl_$PLATFORM.tar.gz
+sudo install -m 0755 /tmp/eksctl /usr/local/bin && rm /tmp/eksctl
+
+on-demand instances
+SPOT -> 70% discount from on-demand price
+2min notice..
+NON-PROD environments
+
+kubectl get nodes -> displays how many nodes are there
+
+namespace -> an isolated project space where we can our project resources
+PaaS -> We can multiple projects here
+
+kubectl get namespaces
+
+kubectl create namespace roboshop
+
+kubectl api-resources -> 2 types of resources. namespace level or cluster level
+
+pod
+====
+pod is the smallest deployable unit in kubernetes. we can run one or more containers inside the pod. containers inside pod share same network and storage space. why?
+
+multicontainers are useful in sidecar, proxy, etc patterns
+
+labels
+=======
+labels are useful to filter and select other resources.
+
+imagePullBackOff -> image address wrong
+crashLoopBackOff -> unable to start container due to configuration error
+
+labels vs annotations
+======================
+labels -> there is a limit of key value charecter length, no special charecters. used to select internal resources
+annotations -> no limit or more limit char than labels. special charecters are allowed. used to select external resources outside of kubernetes
+
+resource utilisation -> dynamically use the resources..
+
+configuration
+=====================
+code always needs configuration.
+1. non-confidential -> config
+2. confidential -> secrets
+
+cart needs catalouge information. 
