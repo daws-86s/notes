@@ -1,0 +1,69 @@
+Namespace 
+Pod -> one or more containers. share same network space and storage
+
+kubectl get nodes
+kubectl get pods
+kubectl describe pod pod-name
+kubectl exec -it pod-name -- bash
+
+apiVersion: v1
+kind: Pod
+metadata:
+	name: pod-name
+	namespace: roboshop
+	labels:
+		project: roboshop
+		env: dev
+	annotations:
+		jenkins.url: "https://joindevops.jenkins.com/build/6"
+spec:
+	containers:
+	- name: nginx
+	  image: nginx
+	  resources:
+		requests:
+			cpu: "50m"
+			memory: "68Mi"
+		limits:
+			cpu: "100m"
+			memory: "128Mi"
+	  env:
+	  - name: course
+		value: kubernetes
+		
+encoded vs encrypted
+
+docker
+daoacakaeara -> not secure
+
+Services
+===========
+pod to pod communication is not useful since pod IP are ephemeral. Services can acheive 1. pod to pod communication
+2. load balancing
+3. service name works as DNS too
+
+1. ClusterIP -> default. your application is exposed within the cluster. like other pods can hit the service to get response
+
+if you want application to expose outside world. 
+2. NodePort
+3. LoadBalancer
+
+labels are used to select resources in kubernetes
+
+cluster IP < node port 
+
+ReplicaSet -> creates desired number of pod replicas based on selectors
+
+Deployment
+==========
+1. stop the server
+2. remove old code
+3. download new code
+4. restart the server
+
+frontend:v1 -> 2
+
+frontend:v2
+
+1. create one pod with version as frontend:v2 and remove old frontend:v1
+2. create another pod with version as frontend:v2 and remove old frontend:v1
