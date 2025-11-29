@@ -1,0 +1,37 @@
+workstation
+	docker install
+	kubectl install
+	eksctl install
+aws configure
+eksctl create cluster --config-file=eks.yaml
+eksctl delete cluster --config-file=eks.yaml
+
+Namespace
+Pod
+	env
+	labels
+	annotations
+	conifgmap
+	secret
+	resources
+Services
+	ClusterIP -> used to expose the pod with in the cluster, pod to pod communication and load balancing using service name as DNS
+	NodePort, LB -> expose the application to outside world
+	
+	Pod uses labels as selectors to the service
+
+ReplicaSet -> used to create desired number of replicas. 
+Deployment -> used to handle the application deployments through image, by default rolling update deployment will work here
+
+pod < replicaset < deployment
+
+catalogue -> mongodb using service. clusterip is enough
+
+sudo git clone https://github.com/ahmetb/kubectx /opt/kubectx
+sudo ln -s /opt/kubectx/kubens /usr/local/bin/kubens
+
+liveness probe and readiness probe
+=================================
+nginx -> nginx.conf
+
+nginx.conf -> entire data of nginx.conf is the value
