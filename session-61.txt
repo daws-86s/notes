@@ -1,0 +1,89 @@
+0-1024 system ports
+few clusters will not allow to open these ports for non root containers
+
+Volumes
+========
+pod is ephemeral
+node is ephemeral
+
+1. ephemeral
+2. eternal
+
+when pod is created, it takes some storage from underlying host. when pod is deleted storage is also deleted
+
+ephemeral
+==========
+1. emptyDir -> this is the default storage allocated in the host until pod lives. when you have multiple containers in a pod that should have access to same storage.
+
+2. hostPath
+
+sidecar pattern. app container logs the transactions. sidecar access it and push to log storages like elk, etc.
+
+sets
+====
+1. Replicaset
+2. Deployment
+3. Deamonset -> it will make sure one replica of pod runs in each and every node. we can ship the logs using daemonset by access host logs through hostPath. hostPath persist the data until the pod runs on the node.
+
+monitoring of the node
+4. Statefulset
+
+DaemonSet
+hostPath -> ephemeral storage used by pod to access the underlying host storage, this is not secure but in few situations like shipping the logs to external storage we are using hostpath with readonly access.
+
+Perm volumes
+===============
+1. networking
+2. storage
+3. programming
+4. os
+
+HD(EBS) elastic block storage
+=========
+should be as near as possible to computer
+data trasfer is very fast
+can connect to only computer at a time
+databases and OS should be in EBS
+
+Drive(NFS) EFS(Elastic file storage)
+======
+should be anywhere in the network
+data transfer is slow compared to EBS
+can be used in multiple systems at a time
+databases and os can't be used in EFS
+you can keep files in EFS
+
+1. static provisioning -> manually creating disks
+2. dynamic provisioning -> pods can create disks dynamically whenever required
+
+storage administration
+===========
+create storage and attach to server
+add or reduce storage to the servers
+remove storage
+
+backup
+restore
+backup testing
+data replication
+
+k8 created some wraper objects called PVC, PV and storage class
+
+create disk -> storage team
+PV(Persistant volume) -> k8 admin team
+claim/mount the disk -> devops
+
+PV(Persistant volume) -> k8 object/resource equivalant to disk
+PVC (Persistant volume claim) -> k8 object to mount the storage i.e PV
+
+Son/Daughter Father and Mother
+
+Son -> Mother -> Father -> Wallet
+Pod -> PVC -> PV -> Disk
+
+Son -> Mother -> Phonepe
+Pod -> PVC -> Disk(Create and Mount)
+
+
+
+
