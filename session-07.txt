@@ -88,11 +88,12 @@ mysql_secure_installation --set-root-pass ExpenseApp@1
 
 IP, port, protocol, username and password/key
 
-https
 IP/facebook.com
+443
+https
 username
 password
-443
+
 
 mysql  -u root -p<password>
 
