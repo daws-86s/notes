@@ -1,0 +1,56 @@
+redis
+timeseries databases
+logs storage
+
+emptyDir -> it is the storage created by pod in the host it is running. multiple containers inside pod can mount the same storage. useful in sidecars to access and push the logs to outside
+hostPath -> it is used by pod to access the hostfile system, usually not secure but in some cases like to access the host logs and push them to outside this is useful, we should make readOnly true
+DaemonSet -> makes sure a replica of pod runs in each and every node. when a node created daemonset automatically provisions pod inside that, if deleted it will the remove the pod. useful for logs collection, monitoring the node
+
+1. write a email and raise a ticket to storage team asking for some GB like 100GB.
+2. Get the approval from delivery manager and assign them to storage team.
+3. Storage team delivery lead manager approves it
+4. Someone in the storage team creates the disk.
+5. You will ask k8 admin to create PV, it is namespace level resource.
+
+PV -> it is equivalant object inside K8 that represents physical disk
+6. Then roboshop devops engineer creates PVC and attach to pod.
+
+EBS
+====
+1. create the disk
+2. disk should be in same az as the instance
+3. install the EBS drivers
+4. EC2 nodes should have IAM role access to mount EBS volumes
+
+vol-08a1628c9a820c0e0 1b
+
+kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/?ref=release-1.53"
+
+Create PV
+
+https://github.com/kubernetes-sigs/aws-ebs-csi-driver/blob/master/examples/kubernetes/static-provisioning/manifests/claim.yaml
+
+Dynamic Provisioning
+===================
+storageClass -> used for dynamic provisioning to create the disk and pv automatically
+
+
+EBS vs EFS
+===========
+1. EBS should in the same az as server, EFS can be anywhere in network
+2. EBS only accessed one server at a time, EFS can be accessed by multiple servers
+3. EBS is faster than EFS
+4. EBS is for OS and DB, EFS can be used to store objects or files
+5. EBS size is fixed, EFS is elastic size can go upto PB
+6. We can select fs type in EBS, but EFS has fixed type called NFS
+7. EBS not required SG, for EFS we should attach SG. 2049 is port number for NFS
+
+EFS
+====
+1. create the disk
+3. install the EFS drivers
+4. EC2 nodes should have IAM role access to mount EFS volumes
+5. allow 2049 in EFS SG from EC2 SG
+
+kubectl kustomize \
+    "github.com/kubernetes-sigs/aws-efs-csi-driver/deploy/kubernetes/overlays/stable/?ref=release-2.1" > public-ecr-driver.yaml
