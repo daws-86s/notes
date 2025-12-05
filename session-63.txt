@@ -1,0 +1,69 @@
+Static provisioning
+Dynamic provisioning
+
+static
+=======
+1. Install drivers and create the disk
+2. Make sure nodes have IAM access to EBS/EFS
+3. if EFS SG should allow port no 2049 from worker nodes
+4. if EBS volume should be in the same AZ as server
+5. We need to create PV, PVC and mount to the pod
+
+Dynamic
+=======
+Install drivers
+Make sure nodes have IAM access to EBS/EFS
+if EFS SG should allow port no 2049 from worker nodes
+We need to create SC
+we need to create PVC, mention sc name. Then volume and PV will be automatically created
+
+Peer Discovery -> Who are available in the cluster with me
+
+Stateful applications in k8
+=====
+PV
+PVC
+SC
+
+1. StatefulSet
+2. Headless service
+
+Deployment -> purely for stateless applications. Only shared disks will be created if PV and PVC are used.
+StatefulSet -> for stateful applications like DB. Every pod replica creates its own disk.
+
+What is headless service?
+if a service clusterIP then it is called as headless service. when provisioning stateful applications in k8 we need peer discovery mechanism for data replication. if a pod get create/update/delete request it should update other members it uses headless service to know the members in cluster, normal service just provides its cluster IP. headless service provides all IP in the cluster
+
+Stateful application in k8 should have cluster ip and headless service both.
+
+curl -sS https://webinstall.dev/k9s | bash
+
+Deployment vs StatefulSet
+=========================
+1. statefulset is for db related applications, deployment is for stateless applications
+2. Headless service is mandatory for statefulset, not required for deployment
+3. PV, PVC are mandatory for statefulset.
+4. pod names are random in deployment, pod names are fixed in statefulset in orderly manner. statefulset-0/1/2/3.
+5. statefulset pods are created or destroyed in orderly manner one by one.
+6. statefulset preserves pod identity, because in case of pod cash another replica will go and attach to same disk
+
+Horizontal scaling vs Vertical Scaling
+======================================
+1GB Ram, 20GB HD
+10GB Ram, 200GB HD
+Vertical scaling is increasing the server resources. It has downtime. Single point of failure
+
+1GB Ram, 20GB HD
+Horizontal scaling is like increasing the number of instances, no downtime here. no pint of failure
+
+HorizontalPodAutoScaler -> min, desired, max
+avg cpu utilisation -> 70%
+
+metrics server -> add-on in eks cluster
+resource requests and limits are mandatory if you want hpa
+
+500m
+200m
+40%
+
+node us-east-1a -> EBS in 1a
