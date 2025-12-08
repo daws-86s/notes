@@ -1,0 +1,55 @@
+PV
+PVC
+SC
+StatefulSet
+
+Marketing
+Sales
+Operations
+Finance
+
+1. Install drivers
+2. Give IAM permissions
+3. Storage Class creation
+
+Kubectl apply -f -> EKS master/cp
+
+cp -> scheduler -> check node resources
+
+nodeSelector -> based on node labels you can request scheduler to schedule the pod
+
+taints and tolerations
+======================
+taint -> paint
+toleration -> acceptance
+
+a few nodes are tainted
+* special hardware nodes -> GPU AI based appliactions
+* specific firewalls -> DB are accepting connections from only specific nodes based on IP address
+* high priority or dedicated host
+
+project=roboshop:NoSchedule
+
+if a node is tainted, scheduler will not schedule any pods in that node. if you want your pod schedule you need to add toleration, but still scheduler does not gaurentee in that tainted node
+
+a node has already 3 pods running. now you tainted that node with
+
+noSchedule -> dont schedule upcoming pods, dont disturb current pods
+noExecute -> dont schedule upcoming pods, evict current pods
+PreferNoSchedule -> 3 nodes. 1 node is tainted. 2 nodes resources are full.
+
+schedule -> Execute
+
+Affinity and Anti-affinity
+==========================
+or and
+or -> out of 2 nodes select any one. anyone in 2
+and -> I will give 2 parameters, match those 2
+
+kubernetes.io/project: roboshop
+
+scheduler query the nodes
+* untainted nodes if no toleration is there
+* tainted nodes too but with the matching toleration key and value
+
+select names starting with r*
