@@ -1,0 +1,129 @@
+Selectors
+===========
+controlling where to schedule the pod, scheduling the pod in desired node
+
+taints and tolerations
+node selector
+
+if you mark the node as tainted, scheduler will not consider that node for scheduling, but if we apply toleration scheduler can consider it for scheduling but not gaurenteed. in that case we can use nodeSelector
+* project specific hardware
+* firewall rules
+
+nodeSelector:
+	label-name: label-value
+	
+nodeAffinity: is like advanced way of selecting node through operators
+
+operators: in, notIn, Exists, gt, lt
+
+In: consider either value
+
+requiredDuringSchedulingIgnoredDuringExecution: hard rule. your labels must match for scheduler to select the node. pod status is pending if labels does not match
+
+
+preferredDuringSchedulingIgnoredDuringExecution: soft rule. k8 will try for those labels. but if not available it select any other available node
+
+schedule -> Execute -> Running in any node
+
+app.Version: 5.0.1
+
+- labelSelector:
+              matchExpressions:
+              - key: app.Version
+                operator: Gt
+                value: 5
+				
+alpha.eksctl.io/cluster-name=roboshop-dev,
+alpha.eksctl.io/nodegroup-name=roboshop-dev,
+beta.kubernetes.io/arch=amd64,
+beta.kubernetes.io/instance-type=c3.large,
+beta.kubernetes.io/os=linux,
+eks.amazonaws.com/capacityType=SPOT,
+eks.amazonaws.com/nodegroup-image=ami-07f3d541fc1623e0d,
+eks.amazonaws.com/nodegroup=roboshop-dev,
+eks.amazonaws.com/sourceLaunchTemplateId=lt-08720886ab35fec34,
+eks.amazonaws.com/sourceLaunchTemplateVersion=1,
+failure-domain.beta.kubernetes.io/region=us-east-1,
+failure-domain.beta.kubernetes.io/zone=us-east-1b,
+k8s.io/cloud-provider-aws=8bb250398402c1e52ca3dc196187e5cb,
+kubernetes.io/arch=amd64,
+kubernetes.io/hostname=ip-192-168-11-226.ec2.internal,
+kubernetes.io/os=linux,
+node.kubernetes.io/instance-type=c3.large,
+topology.k8s.aws/zone-id=use1-az2,
+topology.kubernetes.io/region=us-east-1,
+topology.kubernetes.io/zone=us-east-1b
+
+kubectl label nodes ip-192-168-11-226.ec2.internal project=roboshop
+ip-192-168-21-7.ec2.internal
+kubectl label nodes ip-192-168-21-7.ec2.internal project=amazon
+
+pod-1 and pod-2
+
+pod-1 is in node-1, pod-2 can have affinity to run alongside pod-1
+
+user -> redis
+
+app is us-east-1a
+cache is in us-east-1b
+
+wherever app is running, if cache is just beside latency can be decreased
+
+cache -> if 2 nodes
+
+1 redis is in wn-1
+2nd redis is in wn-2 -> anti affinity
+
+web application -> 2 replicas
+
+app-1 should be in the server where redis-1 is running
+app-2 should not be in server where app-1 is running. but affinity with redis-2
+
+server-1	server-2	server-3
+pod-1		pod-2		pod-3
+web-1		web-2		web-3
+
+Helm Charts
+============
+1. build the image -> can take images from open source
+2. run the image
+
+1. a package manager for kubernetes applications
+2. templatise the manifest files
+
+dnf install nginx -y -> pulls the package and install in server
+
+ebs drivers -> images, what resources like deployment, configmap
+
+
+helm repo add aws-ebs-csi-driver https://kubernetes-sigs.github.io/aws-ebs-csi-driver
+helm repo update
+
+helm upgrade --install aws-ebs-csi-driver \
+    --namespace kube-system \
+    aws-ebs-csi-driver/aws-ebs-csi-driver
+	
+	
+$ curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-4
+$ chmod 700 get_helm.sh
+$ ./get_helm.sh
+
+
+
+helm install <chart-name> .
+helm list -> listing all the charts
+helm upgrade nginx .
+helm history nginx
+helm rollback <name> <revision-number>
+
+catalogue:4.0.0
+catalogue:5.0.0 -> problems occured
+
+v1.0
+v2.0
+
+CICD -> from 4.0 to 5.0
+helm upgrade nginx --set deployment.imageVersion=5.0 .
+helm get values revision -o yaml  
+
+helm uninstall nginx -> 
