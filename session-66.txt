@@ -1,0 +1,108 @@
+1. Package manager
+2. templatise manifest files
+
+Chart.yaml -> metadata about helm chart
+	apiVersion: v2
+	name: 
+	version: <chartVersion> 1.0.0 
+	appVersion: <imageTag>
+	description: 
+	
+semantic versioning
+===================
+x.y.z
+
+x -> major version
+y -> minor version
+z -> patch version
+
+1.0.0
+1.1.0 -> minor changes
+1.1.1 -> patching
+2.0.0
+
+templates -> k8 manifest files with placeholders
+values.yaml -> actual values for placeholders
+
+helm install <name> .
+helm upgrade <name> --description "" .
+
+42  10/12/25 02:28:51 helm install mongodb .
+   43  10/12/25 02:28:56 helm list
+   44  10/12/25 02:29:06 helm status mongodb
+   46  10/12/25 02:29:45 helm history mongodb
+
+values.yaml -> default values same for all env
+values-dev.yaml -> dev related values
+values-prod.yaml -> prod related values
+
+helm upgrade --install aws-ebs-csi-driver \
+    --namespace kube-system \
+    aws-ebs-csi-driver/aws-ebs-csi-driver
+	
+RBAC -> Role Based Access Control
+
+Nouns -> resources
+Verbs -> actions on resources
+
+Ec2, R53, VPC, CDN
+createEC2, updateEC2, readEC2, deleteEC2
+
+EC2
+readEC2
+
+EC2
+createEC2
+updateEC2
+readEC2
+deleteEC2
+
+Pods, Service, ConfigMap, Deployment
+apiGroup: v1, apps/v1, etc.
+
+a group contains multiple resources. a person can perform acctions on resources
+
+which group?
+what resources in that group?
+what actions you want to perform?
+
+User Group Role Permissions
+
+trainee -> only read access -> ramesh -> RoleBinding
+juniorEngineer -> create and read -> suresh
+serniorEngineer -> create update read -> raheem
+teamLead -> CRUD -> robort
+
+Role -> namespace level
+RoleBinding
+ClusterRole -> cluster level resources
+ClusterRoleBinding
+
+roboshop project approached us project creation and access
+
+By default user created EKS has cluster admin access
+
+User, Role, RoleBinding
+
+give access to suresh
+
+suresh -> roboshop-dev
+
+cluster describe access
+
+1. create IAM user
+2. provide cluster describe access
+3. create role and rolebinding
+4. edit aws-auth config map
+aws-auth is a config map where EKS and IAM are integrated
+
+IAM authentication provider to EKS
+Authorisation is handled by EKS Role and RoleBindings
+
+kubectl get pods
+
+kube/config will be sent to EKS
+
+EKS connects with IAM to check you have cluster describe access or not -> Authentication
+
+
