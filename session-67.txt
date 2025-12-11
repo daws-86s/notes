@@ -1,0 +1,43 @@
+kubectl get pods
+
+aws configure, enter access key and secret key
+
+aws eks update-kubeconfig --region us-east-1 --name roboshop-dev
+.kube/config
+
+aws-auth -> check authentication
+Role and Rolebindings are validated for authorisation then response is given
+
+multiple users belongs to same group
+
+trainee -> add users to this group
+
+john
+rahim
+robert
+
+service account
+===============
+it is the non-human account with which pod runs. service accounts are useful for pods to get access to other resources like configmaps, secrets, other AWS services like secrets manager, paramter store, etc.
+
+OIDC provider -> OpenID Connect -> used by k8s to connect with external identity providers.
+
+eksctl utils associate-iam-oidc-provider --cluster roboshop-dev --approve
+
+eksctl create iamserviceaccount --cluster roboshop-dev --name secret-reader --namespace roboshop --attach-policy-arn arn:aws:iam::160885265516:policy/RoboShopMySQLSecretReader --approve
+
+Ingress Controller -> ALB -> AWS load balancer controller
+==================
+by default k8 service creates classic load balancer in AWS. it is legacy, AWS also not recommending this
+
+we got application load balancer, it is intelligent. it can read the request and send to appropriate target groups
+
+cart.daws86s.fun -> cart target group
+catalogue.daws86s.fun -> catalogue target group
+m.facebook.com -> mobile version of facebook
+
+ALB -> Listener -> Rule -> TG -> VMs
+ALB -> Listener -> Rule -> TG -> Pods
+
+netbanking.icici.com -> ALB -> Listener -> Rule -> NB TG -> Pods
+corporate.icici.com
