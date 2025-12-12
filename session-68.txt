@@ -1,0 +1,13 @@
+https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/
+
+policy creation
+eksctl service account -> role+policy
+
+OIDC provider -> openid connect
+
+eksctl utils associate-iam-oidc-provider \
+    --region us-east-1 \
+    --cluster <your-cluster-name> \
+    --approve
+	
++91 6281 9370 79
