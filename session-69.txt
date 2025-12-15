@@ -1,0 +1,5 @@
+if NODE-1 allows traffic VPC CIDR. 
+
+1. ingress resource can create ingress controller
+2. we can create ALB and use it as ingress controller
+
