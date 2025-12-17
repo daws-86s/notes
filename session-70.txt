@@ -1,0 +1,28 @@
+aws sts get-caller-identity
+aws eks update-kubeconfig --region us-east-1 --name roboshop-dev
+
+Blue Green
+===========
+it is zero downtime upgrade strategy where we create the same capacity of the resources. if current running version is blue, then we create equivalant green capacity, test it, switch the workloads and remove old blue. this process goes on like blue and green
+
+services may face intermittent issues
+
+1. EKS admin team plan the upgrade. They sent repeated communications from last 2 months that 16th DEC we have EKS upgrade from 12:00AM-06:00AM
+2. They will cut the firewall access to app teams.
+3. Create green NG with same capacity and taint the nodes so that pods will not here.
+kubectl taint node <node-name> key=value=effect
+4. Now upgrade the control plan from 1.32 to 1.33, upgrade add-ons too
+5. New NG green also should be upgraded to 1.33. Untaint the green nodes
+6. Shift the workloads from Blue to Green
+	* Cordon blue nodes -> Disabling the nodes from scheduling
+	* Drain the nodes -> Workloads will be shifted to green
+7. Delete old blue NG
+8. Edit the firewalls, provide access to app teams
+9. A communication will be sent that upgrade is completed.
+10. All app teams should check their apps are running fine or not
+
+1. platform upgrades
+2. app version upgrade
+3. programming language upgrade
+4. tools upgrade
+

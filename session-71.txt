@@ -1,0 +1,134 @@
+$ terraform apply -auto-approve
+var.eks_nodegroup_blue_version
+  Enter a value: 1.32
+
+var.eks_nodegroup_green_version
+  Enter a value: 1.32
+
+var.eks_version
+  Enter a value: 1.32
+
+var.enable_blue
+  Enter a value: true
+
+var.enable_green
+  Enter a value: false
+  
+eks version: 1.32
+running group: blue
+running ng version: 1.32
+	||
+	||
+eks target version: 1.33
+target running group: green
+target running green version: 1.33
+
+cp and addons upgrade
+=======================
+1. check the number of parameters given
+2. if less than 1 abort the script
+3. check the current cp running version -> 1.32
+4. now it validates the minor versions. minor version should be only one step ahead. otherwise reject
+5. upgrade the cluster to the expected version, wait until cluster is active and reached the expected version, check every 1 min
+6. query the addons installed in the cluster
+7. loop through the addons, get the current version and next upgrade compatible version
+8. if equal no need to upgrade, if new version available upgrade and wait for status is active with new version
+
+node group upgrade
+====================
+1. get the current ng running version. if blue -> target = green. if green if green -> target = blue
+2. get the cluster version 1.33
+3. get the running node group version -> 1.32
+
+kubectl get nodes -l "nodegroup=blue" \
+  -o jsonpath='{.items[0].status.nodeInfo.kubeletVersion}'
+  
+4. create new nodegroup green with 1.33 version
+create_blue=true, version=1.32
+create_green=true, version=1.33
+
+5. wait until green nodes are ready. 
+6. cordon blue and drain them
+7. workloads will come to green
+
+8. create_blue=false, version=1.32
+create_green=true, version=1.33
+
+sh upgrade-cluster.sh 1.34
+sh upgrade-nodegroup.sh green
+
+Application Deployment
+=======================
+rolling update
+	4 replicas are running now
+	create 2 replicas with new version, wait until running
+	delete 2 old replicas, create new new replicas, wait until running
+	delete 2 old replicas
+	
+	for a moment, 1 old app version and new version running simultaneously. app team should handle that
+	
+blue-green
+=========
+create the same capacity of resources, check them. if good update the routing
+
+1. not same version at a time
+2. easy to rollback
+
+1. double resources
+kubectl patch svc nginx -p '{"metadata":{"labels":{"color":"blue"}}}' --type=merge
+
+kubectl patch service nginx -p '{"spec":{"selector":{"color": "green"}}}'
+
+VM
+===
+R53 -> LB -> TG -> VM
+
+create another TG -> VM
+create a preview LB and update preview R53
+
+R53 -> LB -> new TG
+
+https://joindevops.com/api/v1
+https://joindevops.com/api/v2
+
+init containers
+================
+these are special containers run before main containers
+1. check for dependencies before starting main container
+2. fetch the screts/configs
+3. run migration or sql scripts before main container start
+
+they run in sequential order. all init containers should be succesful and completed before main container starts
+
+RUN ln -s usr/local/bin/docker-entrypoint.sh /entrypoint.sh # backwards compat
+{{ ) else "" end -}}
+ENTRYPOINT ["docker-entrypoint.sh"]
+
+EXPOSE 3306 33060
+CMD ["mysqld"]
+
+create our own script, this will read password from a location in tmp directory. make it as env variable
+
+now run the actual cmd from the image
+
+1. OIDC provider
+2. Create policy that can access mysql password
+3. Create SA that creates role and attach this policy
+
+eksctl utils associate-iam-oidc-provider --cluster=roboshop-dev --approve
+
+arn:aws:iam::160885265516:policy/MySQLSecretReaderForRoboShop
+
+eksctl create iamserviceaccount --cluster=roboshop-dev --name=secret-mysql-reader --namespace=roboshop--attach-policy-arn=arn:aws:iam::160885265516:policy/MySQLSecretReaderForRoboShop
+
+secret-mysql-reader
+
+aws secretsmanager get-secret-value \
+  --secret-id roboshop/dev/mysql_password \
+  --query 'SecretString' \
+  --output text | jq -r '.["mysql-password"]'
+
+100
+ add 10 new nodes, 
+ 
+ cordon 10 old nodes, i.e 90 old nodes are ready 10 old nodes are disabled.. drain them
