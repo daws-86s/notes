@@ -1,0 +1,106 @@
+VPC-CNI
+
+VPC provides networking to the pods in EKS, IP addresses will be in the range of VPC CIDR
+
+based of instance type we get
+* number of ENI
+* IP address per ENI
+
+Elastic Network Interface
+Laptop -> Ethernet, WiFi
+
+t3.medium -> 3 ENI 1 ENI can contain 6 IP addresses = 18
+18-1 = 17 pod IPS we can assign to t3.medium
+
+m5.xlarge -> 
+60-1 = 59 pod IP
+
+catalogue -> mongodb
+user -> mongodb
+
+shipping -> mongodb
+
+2 nodes
+========
+4 replicas -> in single node? 
+
+PDB may not work
+
+distribute the pods along the nodes..
+podAntiAffinity, topologySpreadConstraint
+
+1a, 1b
+topology should be zone
+
+if topology is host -> 
+
+PDB -> setting the minAvailable pods in case of node failure or node upgrade which uses drain
+
+we use PodAntiAffinity and topologySpreadConstraint to spread the pods across the nodes
+
+K8 Architecture
+================
+master nodes add-ons
+
+Master
+=======
+api-server -> k8 receives the requests to api-server first, it validates the authentication and authorisation. this is the entrypoint for the cluster. it will give the response for get requests
+
+scheduler -> api-server handovers the request to the scheduler. it will query all the worker nodes validates manythings nodeselectors, nodeaffinity, podaffinity, podAntiAffinity, taints and tolerations, topologySpreadConstraint, node resources, then schedule the pod on available node. if rules are hard pod goes to pending
+
+controller
+	NodeController -> watch the desired number of nodes are available and healthy
+	replicationController -> responsible for running desired number of pods
+	EndpointSlice controller -> responsible for populating the pod Ip to service
+	Job controller -> responsible to run the job, jobs are one time that goes to completion status
+etcd -> database for kubernetes. 
+
+Node Components
+================
+kubelet -> agent running on every node that connects node and control plane and responsible for running the containers inside pod
+
+kube-proxy -> networking for the pods, service to pod communications 
+
+container-runtime -> runtime for containers inside pod
+
+add-ons -> vpc-cni, eks-pod-identity-agent, coredns, kube-proxy, metrics-server, EBS CSI, EFS CSI
+
+
+GIT
+======
+repo creation
+add the files to staging area
+commit to local repo
+push to central repo
+
+init the repo
+set the main branch 
+add origin
+add fles to staging, commit to local, push to central
+
+clone
+pull the changes
+
+prod code points to -> main branch
+
+we don't develop directly in main branches
+
+create new branch, do the development here, test it, finally send to main branch
+
+branches
+pull request
+merge
+rebase
+conflicts
+branching strategy
+
+create a branch
+do the development there
+	run cicd
+if success then raise a PR to main branch
+
+git checkout -b <branch-name>
+
+merge commit is a special commit that is extra commit created, it will have 2 parents
+merge commit preserves the history
+
