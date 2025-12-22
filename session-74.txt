@@ -1,0 +1,98 @@
+GIT
+
+merge
+rebase
+branching strategy
+PR
+
+Reset and revert -> undo the changes done.
+
+Reset -> commits will be deleted, it is only suitable for private branches or local commits
+soft, mixed, hard
+
+commit -> it is like promise
+
+revert -> will not delete any commit, we can correct the changes using revert commit, old commits still will be there. Useful for shared/remote branches
+
+git squash/interactive rebase
+===========
+100 commits -> squash them into single commit
+
+v1.0 -> v1.1
+
+v1.1 - v1.0 = our feature
+
+git rebase -i <where-to-pick>
+
+84a22a0 (origin/main, main) Merge pull request #4 from daws-86s/egg-dosa-ramesh -> commits after 84a22a0
+
+git stash
+=========
+while we are working on some branch, suddenly an emergency defect came in production, so we need to move and create hotfix branch. we can stash changes complete hotfix, comeback to our branch and pop the changes
+
+git cherry-pick
+============
+if you are developing some feature, but a part of it already developed earlier instead of doing everything from the scratch you can cherry pick the changes from previous commits
+
+CI
+====
+it is a process of integrating all the code into single artifact/image. this should be unit tested, scans with all possible scannings before built into artifact/image. we are using shift-left strategy for CI
+
+shift-left
+=========
+instead of scanning and testing once the development completed, we can shif tthem while development is going on..
+
+Jenkins and Github Actions
+
+jenkins power lies in plugins. if you install plugin jenkins can connect to that tools. Jenkins give us nice interface, control, logging, scheduling, RBAC, auditing, webhooks, shared library, etc.
+
+clone
+build
+terraform+aws
+kubectl 
+
+CI tools
+
+sudo curl -o /etc/yum.repos.d/jenkins.repo \
+    https://pkg.jenkins.io/redhat-stable/jenkins.repo
+sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+# Add required dependencies for the jenkins package
+sudo yum install fontconfig java-21-openjdk -y
+sudo yum install jenkins -y
+sudo systemctl daemon-reload
+
+freestyle vs pipeline
+
+pre-build build post-build
+
+1. no version control
+2. tough to do changes
+3. can't revert to earlier stage
+4. can't track
+5. can't verify
+
+3*3 => 9
+
+Architect -> UI, Backend, DevOps, Cloud, DB
+
+Master and Node
+===============
+jenkins master can't handle all the load.
+a single server can't have all the platform envrionments like testing our application in Mac, Windows, different browsers, different devices like android, iOS. very hard to do in single server.
+we create multiple agents for different purpose and run our jobs there
+master can co-ordinate these agents
+
+/var/lib/jenkins
+
+sudo lvextend -L +20G /dev/mapper/RootVG-homeVol
+
+
+
+sudo lvextend -L +10G /dev/mapper/RootVG-rootVol
+
+C1 -> v1.0
+C100 -> v1.1
+
+C100 - C1 = new code
+
+C2 - C1 = new code
