@@ -1,0 +1,13 @@
+pre-build ->how to trigger, env setup
+build -> what to do
+post-build -> after completion
+
+declarative vs scripted pipeline
+
+declarative -> latest from 2.0 jenkins. jenkins DSL on top of groovy. this is strictly evaluated before execution. if errors it will not run. It is like a wrapper jenkins created on top of groovy for strict evaluation
+
+scripted -> purely groovy, it will execute at runtime. if error comes in middle it will stop. more control to handle things
+
+Hybrid approach
+
+GitHub -> Jenkins

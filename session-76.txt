@@ -1,0 +1,43 @@
+aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 160885265516.dkr.ecr.us-east-1.amazonaws.com
+
+docker build 160885265516.dkr.ecr.us-east-1.amazonaws.com/roboshop/catalogue:latest
+
+docker push 
+
+unit testing -> functions are the basic blocks of applications
+functional/component testing -> overall functionality with in the component
+integration testing -> testing between the components
+regression testing -> any new defects because of new changes
+sanity testing -> after the release, is everything fine or not
+end to end testing -> entire flow of the application
+performance testing
+
+login(string username, string password){
+	boolean isSuccess = checkWithDB(username, password)
+	if(isSuccess){
+		showDashBoard()
+	}
+	if(failure){
+		showError()
+	}
+}
+
+valid tests -> success
+failure test cases -> failure
+
+code coverage -> 10 functions, if you write unit test cases for 9 functions. code coverage is 90%
+
+infra security, application security, network security, data security
+
+1. static source code analysis
+2. static application security testing (SAST) -> fortify webinspect
+3. open source vulnerability scans -> Nexus IQ, Blackduck
+4. image scanning -> ECR scans, Trivy
+5. dynamic application security testing -> Veracode
+
+C1 C2
+overall code = C1+C2
+new code = C2-C1
+
+
+Vulnerbalities -> coding blocks that can be exploited
