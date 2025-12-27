@@ -1,0 +1,48 @@
+unit test -> developers, testing the single function, can't take connections with DB
+
+unit test results into a coverage report
+-> how many tests
+-> how many success
+-> how many failed
+-> how many lines covered -> code coverage
+
+send the report to sonarqube
+
+
+functional testing -> developers/testers, testing the API of single component
+
+	/categories -> get all categories
+	/categories/1 -> get all the products in category 1
+	/products -> get all products from DB
+	/products/1 -> get the product details
+	
+integration testing -> testing between the components
+end to end testing -> test like end user
+smoke testing -> after the release
+regression -> testing other things may be effected by the change
+performance -> load testing
+
+trivy to scan image only 
+
+
+trivy image \
+  --scanners vuln \
+  --severity HIGH,CRITICAL,MEDIUM \
+  --pkg-types os \
+  --exit-code 1 \
+  --skip-db-update \
+  --no-progress \
+  --format table \
+  160885265516.dkr.ecr.us-east-1.amazonaws.com/roboshop/catalogue:1.1.0
+  
+ 00-vpc -> 10-sg
+ 
+stage('Trigger Downstream Job') {
+	steps {
+		script {
+			build job: 'DownstreamParameterizedJob',
+				wait: false, // Wait for completion
+				propagate: false, // Propagate status
+		}
+	}
+}

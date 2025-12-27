@@ -1,0 +1,70 @@
+
+
+static source code analysis
+SAST
+open source scanning
+image scanning
+DAST
+
+1. list of all the project codes, app codes -> roboshop, catalogue
+2. Enable sonar scan for them, don't fail anything
+3. Set the timeframe next 6 months to clear HIGH, CRITICAL for overall code
+	* Overall code
+	* New code
+4. from next 1 month after, we will apply HIGH and CRITICAL quality gates for new code
+5. So quality gates fails if new code is not good.
+6. after 6 months set the quality code for overall code
+
+Quality Gate: Scanning the code, finding the issues. fail the pipeline if the criteria does not match... we configured like 0 vulnerabilities, 0 bugs, 0 code smells, security rating A, maintainability rating A, reliability rating A, code coverage 80%
+
+Quality Profiles: Rules for SonarQube while scanning the code. our organisation architects and senior developers
+
+National Vulnerability Database -> US Official organisation
+CVE -> Common Vulnerability Exposure ID -> MITRE funded by US Gov, Non profit
+
+Redhat, Oracle, Microsoft, Google, Security Research, Bounty Programs, Internship programs, etc..
+
+a ID is allocated to vulnerability
+
+MITRE -> NVD -> CVE-HJFG-1234
+
+metadata
+=========
+who manages that, OS package, app dependency
+fix the criticality
+which version?
+who is the vendor?
+which OS?
+what is the fix? which upcoming version is fixing this
+
+
+Scanning Tools
+===============
+reads our top level and low level dependencies. OS version, library name, version, etc.
+
+NVD responds with known vulnerabilities and remedy fixes..
+
+3 HIGH, 3 CRTICAL, 8 MEDIUM, 9 LOW -> full info
+
+setup a quality gate to filter HIGH, CRITICAL and fail the pipeline
+
+CVE-2025-61882
+
+ATG Patchset Level: R12.ATG_PF.C.delta.10
+
+Impact:
+- Environment uses ATG delta 10.
+- For CVE-2025-61882 mitigation, the required XDO patch is:
+  Patch 38510732:R12.XDO.C (apply_mode=hotpatch)
+
+1. query the dependabot alerts
+2. json response
+3. if high, critical and open then stop the pipeline
+4. if no critical and high and open proceed the pipeline
+
+https://api.github.com/repos/daws-86s/catalogue/vulnerability-alerts
+
+curl -I \
+  -H "Accept: application/vnd.github+json" \
+  -H "Authorization: Bearer <token>" \
+  https://api.github.com/repos/daws-86s/catalogue/dependabot/alerts
