@@ -1,0 +1,16 @@
+jenkins shared library
+
+centralise jenkins pipeline that can be used at run time
+* pipeline as library
+* enforce best standards
+* when change occurs easy to update
+* reuse the pipeline
+
+programming language	build-tool		deployment-paltform
+java						ant				legacy
+java						Maven			VM
+java						gradle			EKS
+											PCF
+											
+aws EKS control should allow jenkins agent on port 443
+jenkins agent is in default VPC, check the routes. private subnet

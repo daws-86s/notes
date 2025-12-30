@@ -1,0 +1,61 @@
+catalogue-ci -> catalogue-deploy -> jenkins library
+
+Build once and run anywhere
+
+if first time it will take install, otherwise it will upgrade
+helm upgrade --install $component -f values-$deploy_to.yaml -n $project
+
+build errors
+scanning related errors
+testin related errors
+deployment related errors
+
+we are following multiple strategies to make our applications stable and defect free
+* Shift left
+* DevSecOps
+* Build once and run anywhere
+
+we are using jenkins shared libraries to enforce the same standards across all applications.
+
+https://api.slack.com/apps
+
+
+
+
+curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, World!"}' 
+
+ingress
+=======
+-> ALB, Listener with certificate
+-> Rule
+-> Target group
+-> add pods as IP target to target group
+
+
+eksctl utils associate-iam-oidc-provider \
+    --region us-east-1 \
+    --cluster roboshop-dev \
+    --approve
+	
+curl -o iam-policy.json https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.17.0/docs/install/iam_policy.json
+
+
+aws iam create-policy \
+    --policy-name AWSLoadBalancerControllerIAMPolicy \
+    --policy-document file://iam-policy.json
+	
+eksctl create iamserviceaccount \
+--cluster=roboshop-dev \
+--namespace=kube-system \
+--name=aws-load-balancer-controller \
+--attach-policy-arn=arn:aws:iam::160885265516:policy/AWSLoadBalancerControllerIAMPolicy \
+--override-existing-serviceaccounts \
+--region us-east-1 \
+--approve
+
+helm upgrade --install aws-load-balancer-controller eks/aws-load-balancer-controller \
+  -n kube-system \
+  --set clusterName=roboshop-dev \
+  --set serviceAccount.create=false \
+  --set serviceAccount.name=aws-load-balancer-controller \
+  --set vpcId=vpc-001cfbf13c0918f1a
