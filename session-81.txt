@@ -1,0 +1,140 @@
+change is inevitable
+infra changes
+	existing services deprecation
+	new services enable
+	terraform version changes
+	provider version changes
+	module development and upgrades
+	EKS upgrades
+	migration
+		on-premise -> cloud
+		cloud -> another cloud
+runtime version changes
+	node:20 -> node:21
+	new features release
+	libraries version upgrade
+	scans
+devops process
+	pipeline changes
+	new projects configure devops
+		jenkins pipeline creation
+		github repos and settings
+		k8 namespace RBAC Dockerfiles manifest
+	existing projects migrate
+		monolithic -> microservices
+
+any project any programming language our standards and process is same
+
+healthcare
+banking
+insurance
+pharma
+
+telecom
+transport
+ecommerce
+oil and gas
+
+I have 8 years of total experience, latest 4 years into devOps and cloud earlier I worked in L2 support and I got a change into DevOps Cloud.
+
+Here we are responsible for end to end application releases from DEV to PROD and infra automation. We are using Terraform infra automation, Jenkins for CICD, Docker and Kubernetes for containerisation, Git as source code management, Ansible for configuration management.
+
+We use multiple strategies to make our applications stable. We migrated from DevOps to DevSecOps, shift left, build once and run anywhere.
+
+We completely automated jenkins pipelines through jenkins shared libraries, we let developers only coding, remaining everything is taken care by us.
+
+we implemented centralised pipelines. we are managing 50+ components through our centralised pipelines
+
+DevOps team -> DEV Team
+
+we meet with development understand their branching strategy, programming language, deployment platform, versions, how frequently they release
+
+then we explain our devops process like the pipelines, if they require infra we can provision through terraform, creating their presence in all the devops related tools like sonar, jenkins, kubernetes, git, etc..
+
+then we configure pipelines, check their manifests and dockerfiles, enable scans...
+
+we explain the branching strategy we follow, we will do those settings..
+
+we will help them to do DEV, QA, UAT deployments, scans, etc. We will be available 2 PROD deployments. if there are any issues we can clear. once the process is stable we will handover to their support team...
+
+We are dealing with Microservices into K8 and monolithic applications in VM.
+
+agile -> sprints
+
+2/3/4 weeks one sprint
+
+6 developers -> new features, bug fixes/improvements
+
+10 tasks -> 2 tasks, 1 task, 3 tasks, -> scrum master
+
+P1, P2, P3, P4 -> plan the timing
+	Heading
+	Description
+	Assigned date
+	planned completion
+	how many hours spent
+	description
+TO-DO -> IN-PROGRESS -> DONE/BLOCKED -> TL Verify -> Approve -> COMPLETED
+
+8 COMPLETED -> 2 backlogs
+2 argocd
+3 github
+2 monitoring sessions
+5 python sessions
+
+feature branch -> DEV deploy -> functional tests
+QA -> deploy -> integration tests -> results
+UAT -> deploy -> regression tests, end to end test -> results
+
+change request process
+
+CR ticket
+	Project Code
+	App code
+	image version -> 1.0.2
+	deployment start time, end time
+	description
+	assigned_to
+	recovery plan
+	scan results, testing results
+	DEV, UAT, QA 
+	TL, Testing team, DM, Client approvals
+	Trigger PROD -> jenkins.daws86s.fun/roboshop/catalogue -> 1.0.2
+
+ECR
+	Project Code
+	App code
+	deployment start time, end time
+	description
+	assigned_to
+	recovery plan
+	scan results, testing results
+	DEV, UAT, QA 
+	TL, Testing team, DM, Client approvals, CTO level
+	
+pipeline checks
+	check the ticket
+		is approved or not
+		is deployment window now or not -> then we can allow PROD
+		DEV, UAT, QA success or not
+		
+		then we trigger deployment into PROD
+		helm recover to previous version, and pipeline failed
+		
+DevOps team -> 2 weeks, 3 weeks, 4 weeks
+	tasks
+		new pipelines
+		cart application devops
+		eks upgrade
+		terraform version changes
+		poc on new scan trivy
+		nodejs 22 nodejs 24
+		jenkins agents should be upgraded to 24
+		using ansible for VM deployments
+
+Documentation -> we document everything. we use confluence
+Mentorship -> I will mentor junior engineers
+We will conduct a session every 2 weeks. any person in our team can discuss about new technology or new concepts.
+
+		
+C1 C2 C3 C4
