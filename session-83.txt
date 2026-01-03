@@ -1,0 +1,34 @@
+SAST
+code scan
+Open source vulnerability scan
+image scan
+DAST
+
+DEV, QA, UAT, PRE-PROD(with in PROD network, but limited access)
+
+trusted third parties, DAST
+Veracode -> internal
+
+apiVersion: elbv2.k8s.aws/v1beta1
+kind: TargetGroupBinding
+metadata:
+  name: frontend
+  namespace: roboshop
+spec:
+  serviceRef:
+    name: frontend # route traffic to the awesome-service
+    port: 80
+  targetGroupARN: arn:aws:elasticloadbalancing:us-east-1:160885265516:targetgroup/roboshop-dev-frontend/36e8d97f6003a564
+  targetType: ip
+  
+
+2 jenkins servers -> master and slave seperate for NON-PROD and PROD envrironment
+
+NON-PROD and PROD(PROD and PRE-PROD)
+
+4-10 slaves		
+teraform -> 2 -> 8 pipelines
+java -> 4 -> 16 pipelines parellel
+nodejs -> 3 -> 12 pipelines
+
+

@@ -1,0 +1,65 @@
+GitOps
+=======
+1. Single source of truth
+
+ArgoCD
+1. maintain the cluster
+2. deploy the application
+3. can automatically sync github repos to the cluster
+4. you can use argocd as deployment tool..
+5. clean UI
+
+
+kubectl create namespace argocd
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
+kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
+
+curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd
+rm argocd-linux-amd64
+
+argocd admin initial-password -n argocd
+
+Managing the cluster
+====================
+namespaces
+storage classes
+ingress controller
+ebs
+efs
+network policies
+pv
+
+everything in argocd is application
+	source
+	destination
+	sync-options
+	
+EKS admins
+===========
+
+clone eks-argocd repo
+create new branch on your team name... create PR to main branch
+
+admin checks the PR, reviews it, approve if everything is good
+
+[frontend]
+134.123.45.65
+134.123.45.66
+
+[catalogue]
+123.34.56.78
+134.123.45.89
+
+[roboshop:children]
+frontend
+frontend
+
+DEV PROD
+feature branch -> ci, deploy to DEV, functional test cases
+raise PR -> code comes to github main branch
+
+argocd directly refresh application
+
+feature -> main
