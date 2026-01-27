@@ -1,0 +1,12 @@
+master/main -> long lived branch
+feature -> short lived
+
+development in feature branch
+raise PR
+merge strategy
+	merge -> extra commit called merge commit
+	rebase -> no extra commit, but commit id will be changed, rewrite
+	
+1. if commit id is changed, is code change happened or not -> YES, code is changed
+2. if commit id is not changed, then we are sure code is also not changed
+
