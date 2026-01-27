@@ -1,0 +1,36 @@
+GitHub Actions
+===============
+Pipeline syntax
+	Options
+	Environment
+	Parameters
+	Stages
+	Conditions
+	Inputs
+	Post section
+Shared Libraries
+
+GitHub Actions vs Jenkins
+======================
+1. No need of extra tool
+2. Integrations are easy like scanning tools other integrations are easy
+
+3. You must use GitHub
+4. We are loosing control
+
+Workflow: an automation process in YAML that runs multiple jobs and triggered by events in GitHub
+
+Events: any update in github repo can be considered as event, push to branch, create PR, merge PR, create issues, update tags, etc.
+
+Job: is a collection of steps that can be executed in CICD process like checkout, build, scan, etc.
+
+Actions: Like plugins in Jenkins, reusable snippets like checkout, setup terraform, etc. Adds extra functionality to our workflows
+
+Runners: Agents in jenkins, where our workflows run. GitHub provides github hosted runners for few min. We can configure our own runners too i.e self hosted runners
+
+get the inputs from user, you can trigger workflow manually. event should be workflow_dispatch
+
+options
+	time out
+	at a time only one build should run
+	repo-branch_name -> creates unique string with in repo
