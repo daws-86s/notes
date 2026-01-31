@@ -1,0 +1,43 @@
+env:
+	qa
+	sit
+	uat
+
+1. check the commit id status
+2. trigger to env
+3. trigger end to end tests
+4. UAT_DEPLOY success
+5. E2E_TESTS  success
+
+PROD
+=====
+1. checks, time, CR is approved or not
+2. trigger PROD deploy
+
+CR Process
+=============
+L2 support, deployment support
+JIRA ticket
+	change request
+		project code
+		component
+		version -> sha_code
+		approvals -> TL, TM, Testing Manager, DM, Client
+		scan results
+		testing results
+		time
+		rollback plan -> we are using helm automatic rollbacks
+		
+prod deploy
+	input -> jira ticket number
+			 version -> sha_code
+			 
+	call jira api for ticket details
+		time window < deployment_window
+		status -> approved or not
+	our commit status checks
+	trigger PROD deploy
+	
+developers do some sanity checks
+		
+		
